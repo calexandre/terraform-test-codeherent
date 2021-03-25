@@ -5,28 +5,28 @@ terraform {
   }
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = ">= 2.35.0"
     }
   }
 }
 
 provider "azurerm" {
-  features {  }
+  features {}
   subscription_id = var.subscription_id
 }
 
 data "azurerm_subscription" "this" {}
 
 resource "azurerm_resource_group" "default" {
-  name = var.resource_group
+  name     = var.resource_group
   location = var.location
-  tags = var.tags
+  tags     = var.tags
 }
 
 resource "azurerm_dns_a_record" "dns_a_record" {
-  name = test
+  name                = test
   resource_group_name = azurerm_resource_group.default
-  zone_name = azurerm_dns_zone.default
-  ttl = 
+  zone_name           = azurerm_dns_zone.default
+  ttl                 = 60
 }
