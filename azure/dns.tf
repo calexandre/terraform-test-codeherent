@@ -17,6 +17,5 @@ resource "azurerm_dns_ns_record" "this" {
   resource_group_name = data.azurerm_dns_zone.parent.resource_group_name
   ttl                 = 3600
   tags                = var.tags
-
-  records = azurerm_dns_zone.default.name_servers
+  records             = azurerm_dns_zone.default.name_servers
 }

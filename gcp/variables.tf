@@ -7,7 +7,6 @@ variable "project_folder" {
 variable "project" {
   type        = string
   description = "The google project identifier to be created."
-
   validation {
     condition     = can(regex("^(.*)-(p|np)-(\\d{6})$", var.project))
     error_message = "The project must be in the following format: <name>-<p|np>-<6-random-digits> (ex: myproject-np-666777)."
@@ -43,7 +42,6 @@ variable "env" {
   description = "The environment. Possible values: [p|np|qa]"
 }
 
-
 variable "labels" {
   description = "A set of key/value label pairs to assign to the project."
   type        = map(string)
@@ -65,8 +63,7 @@ variable "domain_name" {
   type        = string
   description = "Project domain name. Used in the DNS registrations."
   validation {
-    condition = length(var.domain_name) > 0
+    condition     = length(var.domain_name) > 0
     error_message = "A valid domain name is required."
   }
 }
-

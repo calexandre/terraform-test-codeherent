@@ -1,4 +1,3 @@
-
 ## Create a GCP service account (GSA) for Kubernetes workloads and save its email address.
 ## WARNING: Creation of service accounts is eventually consistent, and that can lead to errors 
 ##          when you try to apply ACLs to service accounts immediately after creation. 
@@ -14,7 +13,6 @@ resource "google_service_account" "gke_dns" {
 resource "google_project_iam_binding" "gke_sa" {
   project = google_project.this.name
   role    = "roles/dns.admin"
-
   members = [
     "serviceAccount:${google_service_account.gke_dns.email}",
   ]
@@ -25,11 +23,10 @@ resource "google_project_iam_binding" "gke_sa" {
 resource "google_service_account_iam_binding" "gsa_ksa" {
   service_account_id = google_service_account.gke_dns.name
   role               = "roles/iam.workloadIdentityUser"
-
   members = [
     # form: <gke-identity-type>:<gke-identity-namespace>[k8s-namespace/k8s-service-account]
     "serviceAccount:${local.default_gke.workload_identity_config.identity_namespace}[external-dns/external-dns]",
-    "serviceAccount:${local.default_gke.workload_identity_config.identity_namespace}[cert-manager/cert-manager]"
+    "serviceAccount:${local.default_gke.workload_identity_config.identity_namespace}[cert-manager/cert-manager]",
   ]
 }
 

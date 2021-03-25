@@ -4,7 +4,6 @@ terraform {
   backend "local" {
     path = "terraform.tfstate"
   }
-
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -31,5 +30,3 @@ resource "random_password" "password" {
   length  = 16
   special = true
 }
-
-

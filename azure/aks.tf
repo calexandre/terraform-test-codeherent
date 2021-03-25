@@ -6,19 +6,16 @@ resource "azurerm_kubernetes_cluster" "default" {
   dns_prefix              = azurerm_resource_group.default.name
   tags                    = var.tags
   private_cluster_enabled = false # Should this Kubernetes Cluster have its API server only exposed on internal IP addresses?
-
   lifecycle {
     ignore_changes = [
       # Ignore changes to node_count because enable_auto_scaling=true
-      default_node_pool.0.node_count
+      default_node_pool.0.node_count,
     ]
   }
-
   network_profile {
     network_plugin    = "kubenet"
     load_balancer_sku = "standard"
   }
-
   default_node_pool {
     name                  = "default"
     node_count            = 2
@@ -40,14 +37,9 @@ resource "azurerm_kubernetes_cluster" "default" {
       env       = "np"
     }
   }
-
   # supported addons: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster#addon_profile
   #addon_profile { }
-
-  auto_scaler_profile {
-
-  }
-
+  auto_scaler_profile {}
   identity {
     type = "SystemAssigned"
   }
@@ -59,7 +51,6 @@ resource "azurerm_kubernetes_cluster" "default" {
 #  resource_group_name = azurerm_kubernetes_cluster.default.node_resource_group
 #  location            = azurerm_kubernetes_cluster.default.location
 #}
-
 resource "azurerm_role_assignment" "dns_management" {
   scope                            = data.azurerm_subscription.this.id
   role_definition_name             = "DNS Zone Contributor"

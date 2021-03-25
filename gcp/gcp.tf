@@ -7,7 +7,6 @@ provider "google" {
 # data "google_organization" "this" {
 #   domain = var.project_org_domain
 # }
-
 data "google_billing_account" "this" {
   billing_account = var.billing_account
   open            = true
@@ -26,7 +25,6 @@ resource "google_project" "this" {
   project_id      = var.project
   folder_id       = data.google_folder.this.name
   billing_account = data.google_billing_account.this.id
-
   lifecycle {
     prevent_destroy = false
   }

@@ -1,7 +1,6 @@
 # output "client_certificate" {
 #   value = azurerm_kubernetes_cluster.default.kube_config.0.client_certificate
 # }
-
 output "tenant_id" {
   value = data.azurerm_subscription.this.tenant_id
 }
