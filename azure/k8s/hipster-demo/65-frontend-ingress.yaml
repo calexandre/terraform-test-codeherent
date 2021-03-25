@@ -1,0 +1,33 @@
+# apiVersion: cert-manager.io/v1alpha3
+# kind: Certificate
+# metadata:
+#   name: hipster
+#   namespace: hipster-demo
+# spec:
+#   commonName: hipster.azdemo.contoso.pt
+#   dnsNames:
+#   - hipster.azdemo.contoso.pt
+#   issuerRef:
+#     kind: ClusterIssuer
+#     name: letsencrypt
+#   secretName: tls-secret
+# ---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hipster
+  namespace: hipster-demo
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  rules:
+    - host: hipster.azdemo.contoso.pt
+      http:
+        paths:
+        - backend:
+            serviceName: frontend
+            servicePort: 80
+  tls:
+  - hosts:
+    - hipster.azdemo.contoso.pt
+    secretName: tls-secret

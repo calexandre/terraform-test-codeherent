@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: nosi.platforms@contoso.com
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+    - dns01:
+        azuredns:
+          #clientID: 92fdaf40-1ffd-4ee2-9ed3-d8d112766732
+          # clientSecretSecretRef:
+          #   name: azuredns-client-secret
+          #   key: client-secret
+          subscriptionID: fd6b61f0-e9cf-4576-97a1-3d883e82fbf7
+          #tenantID: 5de3b7af-9200-4ffb-8c3e-1e4066ee4776
+          resourceGroupName: aksdemo-calex
+          hostedZoneName: azdemo.contoso.pt
+          # Azure Cloud Environment, default to AzurePublicCloud
+          environment: AzurePublicCloud

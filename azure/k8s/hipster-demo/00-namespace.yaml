@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    istio-injection-istio.io/rev: asm-173-6
+    istio.io/rev: asm-173-6
+  name: hipster-demo
