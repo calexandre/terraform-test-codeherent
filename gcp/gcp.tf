@@ -37,7 +37,7 @@ resource "google_project_service" "this" {
   service = var.gcp_service_list[count.index]
   # If true, services that are enabled and which depend on this service should also be disabled when this service is destroyed. 
   # If false or unset, an error will be generated if any enabled services depend on this service when destroying it.
-  disable_dependent_services = false
+  disable_dependent_services = true
   # If true, disable the service when the terraform resource is destroyed. Defaults to true. 
   # May be useful in the event that a project is long-lived but the infrastructure running in that project changes frequently
   disable_on_destroy = false
